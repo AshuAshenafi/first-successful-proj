@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Form</title>
+</head>
+<body>
+<br/>
+<br/>
+<h1>Basic Bullhorn Application</h1>
+<form method="post" action="/add" th:object="${message}"
+      enctype="multipart/form-data">
+    Full Name: <input type = "text" th:field = "*{sentBy}"/>
+    <span th:if = "${#fields.hasErrors('sentBy')}"
+          th:errors = "*{sentBy}"></span><br/>
+
+    Message: <input textarea rows="3" th:field = "*{content}"/>
+    <span th:if = "${#fields.hasErrors('content')}"
+          th:errors = "*{content}"></span><br/>
+
+    Date: <input type = "text" th:field = "*{postedDate}"/>
+    <span th:if = "${#fields.hasErrors('postedDate')}"
+          th:errors = "*{postedDate}"></span><br/><br/><br/>
+
+    Description: <input textarea rows="3" th:field = "*{description}"/>
+    <span th:if = "${#fields.hasErrors('description')}"
+          th:errors = "*{description}"></span><br/>
+
+    <input type="file" name="file"/><br/><br/>
+
+    <input type = "submit" value = "Submit"/>
+
+</form>
+
+
+</body>
+</html>
