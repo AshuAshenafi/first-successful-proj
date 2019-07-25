@@ -5,24 +5,26 @@
     <title>Form</title>
 </head>
 <body>
+
 <br/>
+<div th:replace="base :: navlinks"></div>
 <br/>
 <h1>Basic Bullhorn Application</h1>
 <form method="post" action="/add" th:object="${message}"
       enctype="multipart/form-data">
-    Full Name: <input type = "text" th:field = "*{sentBy}"/>
+    Full Name: <br><input type = "text" th:field = "*{sentBy}"/>
     <span th:if = "${#fields.hasErrors('sentBy')}"
-          th:errors = "*{sentBy}"></span><br/>
+          th:errors = "*{sentBy}"></span><br/><br/>
 
-    Message: <input textarea rows="3" th:field = "*{content}"/>
+    Message:<br> <textarea rows="4" cols="50" th:field = "*{content}"></textarea>
     <span th:if = "${#fields.hasErrors('content')}"
-          th:errors = "*{content}"></span><br/>
+          th:errors = "*{content}"></span><br/><br/>
 
-    Date: <input type = "text" th:field = "*{postedDate}"/>
+    Date: <br><input type = "date" th:field = "*{postedDate}"/>
     <span th:if = "${#fields.hasErrors('postedDate')}"
-          th:errors = "*{postedDate}"></span><br/><br/><br/>
+          th:errors = "*{postedDate}"></span><br/><br/>
 
-    Description: <input textarea rows="3" th:field = "*{description}"/>
+    Description: <br><input textarea rows="3" th:field = "*{description}"/>
     <span th:if = "${#fields.hasErrors('description')}"
           th:errors = "*{description}"></span><br/>
 
@@ -31,7 +33,7 @@
     <input type = "submit" value = "Submit"/>
 
 </form>
-
-
+<br/><br/>
+<div th:replace="base :: footer"></div>
 </body>
 </html>

@@ -7,22 +7,43 @@
 </head>
 <body>
 <a href="/add">Add a Message</a>
-    <div th:each="message:${messages}">
-            <div th:if="${message.headshot} != null">
-                <img th:src="${message.headshot}"/>
+<br/><br/><br/>
+
+<div th:each="message:${messages}">
+    
+        <aside style="float: left;width: 60px;" >
+            
+                <div th:if="${message.headshot} != null">
+                    <img style="width:50px;height:50px;" th:src="${message.headshot}"/>
+
+                </div>
+            
+        </aside>
+    <table style="width:75%;border: none">
+        <tr>
+            <td style="font-size: x-large;" ><h3 style="color: blue;" id="poster"   th:text="${message.sentBy}"></h3></td>
+            <td style="font-size: small;text-align: right;"><h3 th:text="${message.postedDate}"></h3></td>
+        </tr>
+
+        <tr>
+            <td colspan="2" style="font-size: medium"> <h4 th:text="${message.content}"></h4> </td>
+        </tr>
+
+    </table>
             <hr/>
-            </div>
-<table style="width:50%">
-    <tr><td><h3 th:text="${message.sentBy}">Written by: </h3></td>
-        <td><h3 th:text="${message.postedDate}">Date: </h3></td>
-    </tr>
-    <tr>
-    <h3 th:text="${message.content}">Message: </h3>
-    </tr>
-</table>
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 25%;text-align: center">Share</td>
+            <td style="width: 25%;text-align: center">Like</td>
+            <td style="width: 25%;text-align: center">Viewers</td>
+            <td style="width: 25%;text-align: center">Comment</td>
+        </tr>
+    </table>
 
+</div>
+<hr/>
 
-
-    </div>
+<br/><br/>
+<div th:replace="base :: footer"></div>
 </body>
 </html>

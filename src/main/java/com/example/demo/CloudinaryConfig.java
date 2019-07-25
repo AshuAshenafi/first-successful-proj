@@ -7,6 +7,7 @@ import com.cloudinary.Transformation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import sun.plugin.javascript.navig4.Layer;
 
 import java.io.IOException;
 import java.util.Map;
@@ -39,4 +40,9 @@ public class CloudinaryConfig {
                 .border("2px_solid_black").crop(action))
                 .imageTag(name);
     }
+    /*public String createUrl(String name, int width, int height, String action) {
+        cloudinary.url().transformation(new Transformation()
+                .width(173).height(200).crop("fill").chain()
+                .overlay(new Layer().publicId("hexagon_sample")).flags("cutter")).imageTag(name);
+    }*/
 }
