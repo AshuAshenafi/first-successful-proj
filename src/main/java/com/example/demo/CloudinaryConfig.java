@@ -40,9 +40,5 @@ public class CloudinaryConfig {
                 .border("2px_solid_black").crop(action))
                 .imageTag(name);
     }
-    /*public String createUrl(String name, int width, int height, String action) {
-        cloudinary.url().transformation(new Transformation()
-                .width(173).height(200).crop("fill").chain()
-                .overlay(new Layer().publicId("hexagon_sample")).flags("cutter")).imageTag(name);
-    }*/
+
 }

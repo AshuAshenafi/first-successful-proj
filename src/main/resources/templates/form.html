@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Form</title>
+
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
 </head>
 <body>
 
@@ -10,27 +13,82 @@
 <div th:replace="base :: navlinks"></div>
 <br/>
 <h1>Basic Bullhorn Application</h1>
-<form method="post" action="/add" th:object="${message}"
+<form class="form-horizontal"
+      action="#"
+
+      th:object="${message}"
+      method="post"
       enctype="multipart/form-data">
-    Full Name: <br><input type = "text" th:field = "*{sentBy}"/>
-    <span th:if = "${#fields.hasErrors('sentBy')}"
-          th:errors = "*{sentBy}"></span><br/><br/>
+     <!-- th:action = "@{/process}"-->
 
-    Message:<br> <textarea rows="4" cols="50" th:field = "*{content}"></textarea>
-    <span th:if = "${#fields.hasErrors('content')}"
-          th:errors = "*{content}"></span><br/><br/>
 
-    Date: <br><input type = "date" th:field = "*{postedDate}"/>
-    <span th:if = "${#fields.hasErrors('postedDate')}"
-          th:errors = "*{postedDate}"></span><br/><br/>
+    <div class="form-group">
+        <div class="col-sm-10">
+            <label for="InputName1" class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" th:field = "*{sentBy}" id="InputName1" placeholder="Ashu Dure">
+                <span th:if = "${#fields.hasErrors('sentBy')}"
+                      th:errors = "*{sentBy}"></span>
+            </div>
+        </div>
+    </div>
 
-    Description: <br><input textarea rows="3" th:field = "*{description}"/>
-    <span th:if = "${#fields.hasErrors('description')}"
-          th:errors = "*{description}"></span><br/>
+    <div class="form-group">
+        <div class="col-sm-10">
+            <label for="InputMessage1" class="col-sm-2 control-label">Messsage</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" th:field = "*{content}" rows="4" id="InputMessage1"></textarea>
+                <span th:if = "${#fields.hasErrors('content')}"
+                      th:errors = "*{content}"></span>
+            </div>
+        </div>
+    </div>
 
-    <input type="file" name="file"/><br/><br/>
+    <div class="form-group">
+        <div class="col-sm-10">
+            <label for="InputPostedDate" class="col-sm-2 control-label">Date</label>
+            <div class="col-sm-5">
+                <input type="date" class="form-control" th:field = "*{postedDate}" rows="4" id="InputPostedDate">
+                <span th:if = "${#fields.hasErrors('postedDate')}"
+                      th:errors = "*{postedDate}"></span>
+            </div>
+        </div>
+    </div>
 
-    <input type = "submit" value = "Submit"/>
+    <div class="form-group">
+        <div class="col-sm-10">
+            <label for="InputDescription1" class="col-sm-2 control-label">Description</label>
+            <div class="col-sm-5">
+                <textarea class="form-control" th:field = "*{description}" rows="4" id="InputDescription1"></textarea>
+                <span th:if = "${#fields.hasErrors('description')}"
+                      th:errors = "*{description}"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-10">
+            <label class="col-sm-2 control-label" >Photo</label>
+            <div class="col-sm-5">
+                <input type="file" name="file" th:src = "*{headshot}"/>
+                <div th:if="*{headshot} != null">
+                    <img style="width:50px;height:50px;" th:src="*{headshot}"/>
+                </div>
+                <span th:if = "${#fields.hasErrors('headshot')}"
+                      th:errors = "*{headshot}"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-10">
+            <label class="col-sm-2 control-label"></label>
+            <div class="col-sm-5">
+                <input class="btn btn-primary btn-lg" type = "submit" value = "Submit"/>
+
+            </div>
+        </div>
+    </div>
 
 </form>
 <br/><br/>

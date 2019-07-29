@@ -4,9 +4,11 @@ import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Map;
 
@@ -15,12 +17,14 @@ public class HomeController {
     @Autowired
     MessageRepository messageRepository;
 
+    /*This is to upload the image file*/
     @Autowired
     CloudinaryConfig cloudc;
 
     @RequestMapping("/")
     public String listMessages(Model model){
         model.addAttribute("messages", messageRepository.findAll());
+
         return "list";
     }
     @GetMapping("/add")
@@ -45,4 +49,33 @@ public class HomeController {
         }
         return "redirect:/";
     }
+/*
+    @PostMapping("/process")
+    public String processForm(@Valid Message message, BindingResult result){
+        if(result.hasErrors()){
+            return "form";
+        }
+        messageRepository.save(message);
+        return "redirect:/";
+    }
+
+*/
+    @RequestMapping("/detail/{id}")
+    public String showMessage(@PathVariable("id") long id, Model model){
+        model.addAttribute("message", messageRepository.findById(id).get());
+        return "show";
+    }
+
+    @RequestMapping("/update/{id}")
+    public String updateMessage(@PathVariable("id") long id, Model model){
+        model.addAttribute("message", messageRepository.findById(id).get());
+        return "form";
+    }
+    @RequestMapping("/delete/{id}")
+    public String delMessage(@PathVariable("id") long id){
+        messageRepository.deleteById(id);
+        return "redirect:/";
+    }
+
+
 }
