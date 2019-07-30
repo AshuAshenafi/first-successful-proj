@@ -4,57 +4,55 @@
     <meta charset="UTF-8">
     <title>Show</title>
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        table, th, td{
+            border: 1px solid green;
+        }
+        table {
+            width: 100%;
+            background-color: #f1f1c1;
+        }
+        th{
+            text-align: center;
+        }
+
+    </style>
 </head>
 <body>
 <br/>
 <div th:replace="base :: navlinks"></div><br/><br/>
 
-<div class="container" >
+                                    <div class="container" >
 
-    <aside style="float: left;width: 60px;" >
-
-            <img style="width:50px;height:50px;" th:src="${message.headshot}"/>
-
-    </aside>
-    <table style="width:75%;border: none">
-        <tr>
-            <!-- Name: -->
-            <td><h3 th:text = "${message.sentBy}"></h3></td>
-            <!-- date -->
-            <td><h5 th:text = "${message.postedDate}"></h5></td>
-        </tr>
-    </table>
-</div>
-
-<!--
-Photo: <img style="width:50px;height:50px;" th:src="${message.headshot}"/>
-        <br/><br/>
-
--->
-
-    <!-- Message: <p th:text = "${message.content}"></p><br/><br/> -->
-
-<div class="form-group">
-
-        <label >Messsage: </label>
-
-            <p th:text = "${message.content}"></p>
+                                        <p style="float: left;width: 60px;"><img style="width:50px;height:50px;" th:src="${message.headshot}"/></p>
 
 
-</div>
+                                        <table>
+                                            <tr>
+                                                <th><h3>Name: </h3></th>
+                                                <th><h3>Date: </h3></th>
+                                                <th><h3>Message: </h3></th>
+                                            </tr>
+                                            <tr>
+                                                <!-- Name: -->
+                                                <td width="30%"><h4 th:text = "${message.sentBy}"></h4></td>
+                                                <!-- date -->
+                                                <td width="10%"><h4 th:text = "${message.postedDate}"></h4></td>
+                                                <td width="60%"><h4 th:text = "${message.content}"></h4></td>
+                                            </tr>
+                                            <tr>
 
-    <!-- Description: <span th:text = "${message.description}"></span><br/><br/> -->
-<div class="form-group">
-    <div class="col-sm-10">
-        <label class="col-sm-2 control-label">Description: </label>
-        <div class="col-sm-5">
-            <span th:text = "${message.description}"></span>
-        </div>
-    </div>
-</div>
-<br/>
+                                                <td></td>
+                                                <td >
+                                                    <a class="btn btn-danger" th:href = "@{/delete/{id}(id = ${message.id})}">Delete this Message</a>
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                        </table>
+                                    </div>
 
-<a class="btn btn-danger" th:href = "@{/delete/{id}(id = ${message.id})}">Delete this Message</a><br/><br/><br/><br/>
+
+            </form>
 
 <div th:replace="base :: footer"></div>
 

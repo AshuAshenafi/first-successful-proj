@@ -24,9 +24,6 @@ public class Message {
 
     private String headshot;
 
-    @NotNull
-    @Size(min = 5)
-    private String description;
 
     public long getId() {
         return id;
@@ -68,11 +65,7 @@ public class Message {
         this.headshot = headshot;
     }
 
-    public String getDescription() {
-        return description;
-    }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+
+
 }
