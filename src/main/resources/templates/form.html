@@ -62,11 +62,7 @@
             <label class="col-sm-2 control-label" >Photo</label>
             <div class="col-sm-5">
                 <input type="file" name="file" th:src = "*{headshot}"/>
-                <!--
-                <div th:if="*{headshot} != null">
-                    <img style="width:50px;height:50px;" th:src="*{headshot}"/>
-                </div>
-                -->
+
                 <span th:if = "${#fields.hasErrors('headshot')}"
                       th:errors = "*{headshot}"></span>
             </div>

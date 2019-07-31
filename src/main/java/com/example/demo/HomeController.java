@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 
-import javax.validation.Valid;
+
 import java.io.IOException;
 import java.util.Map;
 
@@ -36,60 +36,38 @@ public class HomeController {
     }
     @PostMapping("/add")
     public String processMessage(@ModelAttribute Message message,
-                                 @RequestParam("file")MultipartFile file, BindingResult result){
+                                 @RequestParam("file")MultipartFile file, BindingResult result) {
 
-        if(file.isEmpty()){
-
-
-            System.out.println("Pleaee attach a picture");
+        if (result.hasErrors()) {
+            System.out.println("There is some Error! Ashu");
             return "redirect:/add";
         }
 
-            try {
-                //upload(object file, map options)
-                //file.getBytes() is object and ObjectUtils.asMap(--,--) is the option
-                System.out.println("am in post/add - try");
-                Map uploadResult = cloudc.upload(file.getBytes(), ObjectUtils.asMap("resource_type", "auto"));
+        try {
+            //upload(object file, map options)
+            //file.getBytes() is object and ObjectUtils.asMap(--,--) is the option
+            System.out.println("am in post/add - try");
+            Map uploadResult = cloudc.upload(file.getBytes(), ObjectUtils.asMap("resource_type", "auto"));
 
-                message.setHeadshot(uploadResult.get("url").toString());
+            message.setHeadshot(uploadResult.get("url").toString());
 
-                messageRepository.save(message);
+            messageRepository.save(message);
 
-                if (result.hasErrors()) {
-                    return "form";
-                } else {
+//            if (result.hasErrors()) {
+//                return "form";
+//            } else {
 
-                    messageRepository.save(message);
-                    return "redirect:/";
-                }
+//                messageRepository.save(message);
+                return "redirect:/";
+//            }
 
-            } catch (IOException e) {
+        } catch (IOException e) {
 
-                e.printStackTrace();
-                System.out.println("am in post/add - inside catch");
-                return "redirect:/add";
-            }
+            e.printStackTrace();
 
-
-
-//        if(result.hasErrors()){
-//            return "form";
-//        }
-//        messageRepository.save(message);
- //       return "redirect:/";
-    }
-
-    @PostMapping("/process")
-    public String processForm(@Valid Message message, BindingResult result){
-        if(result.hasErrors()){
-            System.out.println("am in process");
-            return "form";
+            return "redirect:/add";
         }
-        messageRepository.save(message);
-        System.out.println("am in process-else");
-        return "redirect:/";
     }
-
 
     @RequestMapping("/detail/{id}")
     public String showMessage(@PathVariable("id") long id, Model model){
@@ -106,18 +84,6 @@ public class HomeController {
 
         return "form";
     }
-        ///////////////////////
-/*
-        if (result.hasErrors()) {
-            return "form";
-        } else {
-            messageRepository.save(message);
-            return "redirect:/";
-        }
-        */
-
-
-        ////////////
 
     @RequestMapping("/delete/{id}")
     public String delMessage(@PathVariable("id") long id){
