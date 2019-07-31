@@ -7,7 +7,7 @@ import com.cloudinary.Transformation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import sun.plugin.javascript.navig4.Layer;
+
 
 import java.io.IOException;
 import java.util.Map;
@@ -17,22 +17,33 @@ public class CloudinaryConfig {
     private Cloudinary cloudinary;
 
     @Autowired
+    //setting configuration parameters in your java application
     public CloudinaryConfig(@Value("${cloud.key}") String key,
                             @Value("${cloud.secret}") String secret,
                             @Value("${cloud.name}") String cloud){
+
+        // this will enable you to receive a Cloudinary instance:
         cloudinary = Singleton.getCloudinary();
+
         cloudinary.config.cloudName = cloud;
         cloudinary.config.apiSecret = secret;
         cloudinary.config.apiKey = key;
     }
+
+
     public Map upload(Object file, Map options){
         try{
             return cloudinary.uploader().upload(file, options);
+
         } catch (IOException e){
+
             e.printStackTrace();
+
             return null;
         }
     }
+
+
     public String createUrl(String name, int width, int height, String action){
         return cloudinary.url()
                 .transformation(new Transformation()
