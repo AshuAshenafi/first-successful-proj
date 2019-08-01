@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 
-
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Map;
 
@@ -35,38 +35,38 @@ public class HomeController {
         return "form";
     }
     @PostMapping("/add")
-    public String processMessage(@ModelAttribute Message message,
+    public String processMessage(@Valid @ModelAttribute("message") Message message,
                                  @RequestParam("file")MultipartFile file, BindingResult result) {
 
         if (result.hasErrors()) {
             System.out.println("There is some Error! Ashu");
             return "redirect:/add";
         }
-
-        try {
-            //upload(object file, map options)
-            //file.getBytes() is object and ObjectUtils.asMap(--,--) is the option
-            System.out.println("am in post/add - try");
-            Map uploadResult = cloudc.upload(file.getBytes(), ObjectUtils.asMap("resource_type", "auto"));
-
-            message.setHeadshot(uploadResult.get("url").toString());
-
+        if(message.getHeadshot() != null && file.isEmpty()){
+            System.out.println(message.getHeadshot());
             messageRepository.save(message);
-
-//            if (result.hasErrors()) {
-//                return "form";
-//            } else {
-
-//                messageRepository.save(message);
-                return "redirect:/";
-//            }
-
-        } catch (IOException e) {
-
-            e.printStackTrace();
-
-            return "redirect:/add";
+            return "redirect:/";
         }
+
+        Map uploadResult;
+            try {
+                //upload(object file, map options)
+                //file.getBytes() is object and ObjectUtils.asMap(--,--) is the option
+                System.out.println("am in post/add - try");
+                uploadResult = cloudc.upload(file.getBytes(), ObjectUtils.asMap("resource_type", "auto"));
+
+
+
+            } catch (IOException e) {
+
+                e.printStackTrace();
+
+                return "redirect:/add";
+            }
+        message.setHeadshot(uploadResult.get("url").toString());
+        messageRepository.save(message);
+        return "redirect:/";
+
     }
 
     @RequestMapping("/detail/{id}")

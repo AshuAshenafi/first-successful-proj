@@ -24,6 +24,8 @@ public class Message {
 
     private String headshot;
 
+    public Message() {
+    }
 
     public long getId() {
         return id;
